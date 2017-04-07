@@ -11,15 +11,24 @@
 <body>
 <div style="display: flex;justify-content: center;">
     <section class="section-divider">
-        <label for="lang_from">Convert From</label>
-        <select id="lang_from">
-        </select>
+        <div style="display: flex; justify-content: space-between">
+            <label for="lang_from">Your language:</label>
+            <select id="lang_from">
+            </select>
+        </div>
         <br/>
         <br/>
 
-        <label for="lang_to">Convert To</label>
-        <select id="lang_to">
-        </select>
+        <div style="display: flex; justify-content: space-between">
+            <label for="lang_to">Target language:</label>
+            <select id="lang_to">
+            </select>
+        </div>
+
+        <br><br>
+
+        <video id="selfView" autoplay muted="muted"></video>
+
         <br><br>
 
         <button id="btn-start">Start</button>
@@ -29,6 +38,26 @@
 
 <script src="translator.js"></script>
 
+<script>
+    getLocalStream(function (stream) {
+        document.getElementById("selfView").src = URL.createObjectURL(stream);
+    });
+    function getLocalStream(cb) {
+        var audioConstraint = {
+            mandatory: {
+                echoCancellation: true
+            },
+            optional: [
+                {googNoiseSuppression: true},
+                {googEchoCancellation: true},
+                {googAutoGainControl: true}
+            ]
+        };
+        navigator.getUserMedia({"audio": audioConstraint, "video": true}, function (stream) {
+            cb(stream);
+        }, null);
+    }
+</script>
 <script>
     var translator = new Translator();
 
