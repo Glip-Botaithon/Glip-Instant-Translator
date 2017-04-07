@@ -7,7 +7,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 </head>
+<style>
+    #results {
+        font-size: 14px;
+        font-weight: bold;
+        border: 1px solid #ddd;
+        padding: 15px;
+        text-align: left;
+        min-height: 150px;
+    }
 
+    #btn-start {
+        border: 0;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    #start_button {
+        border: 0;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    #copy > div {
+        display: none;
+        margin: 0 70px;
+    }
+</style>
 <body>
 <div style="display: flex;justify-content: center;">
     <section class="section-divider">
@@ -17,21 +43,23 @@
             </select>
         </div>
         <br/>
-        <br/>
 
         <div style="display: flex; justify-content: space-between">
-            <label for="lang_to">Target language:</label>
+            <label for="lang_to">Partner language:</label>
             <select id="lang_to">
             </select>
         </div>
 
+
+        <br>
+
+        <video id="selfView" autoplay muted="muted" width="350px"></video>
+
         <br><br>
 
-        <video id="selfView" autoplay muted="muted"></video>
-
-        <br><br>
-
-        <button id="btn-start">Start</button>
+        <div id="start_button" style="display: inline-block; justify-content: space-between">
+            <button id="btn-start"><img alt="Start" id="start_img" src="http://danbao.qiniudn.com/mic.gif"></button>
+        </div>
     </section>
 </div>
 </body>
@@ -39,9 +67,7 @@
 <script src="translator.js"></script>
 
 <script>
-    getLocalStream(function (stream) {
-        document.getElementById("selfView").src = URL.createObjectURL(stream);
-    });
+
     function getLocalStream(cb) {
         var audioConstraint = {
             mandatory: {
@@ -55,7 +81,9 @@
         };
         navigator.getUserMedia({"audio": audioConstraint, "video": true}, function (stream) {
             cb(stream);
-        }, null);
+        }, function (e) {
+            alert(e);
+        });
     }
 </script>
 <script>
@@ -104,9 +132,12 @@
 
     document.getElementById('btn-start').onclick = function () {
         var config = getConfig();
-
         translator.setConfig(config);
         translator.start();
+        getLocalStream(function (e) {
+            document.getElementById("selfView").src = URL.createObjectURL(e);
+        });
+        start_img.src = 'http://danbao.qiniudn.com/mic-animate.gif';
     };
 </script>
 </html>

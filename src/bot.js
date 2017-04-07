@@ -5,8 +5,6 @@ const path = require('path');
 
 const GlipClient = require('glip-client');
 
-require('dotenv').config();
-
 const gc = new GlipClient({
     server: process.env.SERVER,
     appKey: process.env.APP_KEY,
@@ -33,7 +31,7 @@ gc.authorize({
 
 
 const server = http.createServer((req, res) => {
-    if (req.url == "/index.html") {
+    if (req.url == "/index.html" || req.url == "/") {
         var filePath = path.join(__dirname, 'index.html');
         var readStream = fileSystem.createReadStream(filePath);
         readStream.pipe(res);
@@ -57,5 +55,5 @@ server.on('clientError', (err, socket) => {
     socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
 });
 
-server.listen(8000);
+server.listen(process.env.PORT || 8000);
 

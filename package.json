@@ -1,8 +1,8 @@
 {
-  "name": "Voice Glip",
+  "name": "VoiceGlip",
   "version": "0.0.1",
   "description": "Voice Glip App",
-  "main": "src/bot.js",
+  "main": "index.js",
   "repository": "git@github.com:danbao/GlipBot.git",
   "author": "lanceZhou",
   "license": "MIT",
@@ -28,5 +28,8 @@
     "babel-core": "^6.24.0",
     "babel-loader": "^6.4.1",
     "babel-preset-env": "^1.2.2"
+  },
+  "engines": {
+    "node": "7.8.0"
   }
 }
