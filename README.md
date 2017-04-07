@@ -1,2 +1,1 @@
-# GlipBot
-GlipBot
+# Demo Glip App
