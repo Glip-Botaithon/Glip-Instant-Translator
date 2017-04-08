@@ -89,7 +89,7 @@
 <script>
     var translator = new Translator();
 
-    function getOption(language) {
+    function getOption(language, selected) {
         var option = document.createElement('option');
         option.value = language.language;
         if (language.name) {
@@ -99,7 +99,7 @@
             option.innerHTML = language.language;
         }
 
-        if (language.language == 'en') {
+        if (language.language == selected) {
             option.selected = true;
         }
 
@@ -113,10 +113,10 @@
         if (!(languages instanceof Array)) return;
 
         languages.forEach(function (language) {
-            var option = getOption(language);
+            var option = getOption(language, 'en');
             from.appendChild(option);
 
-            var option2 = getOption(language);
+            var option2 = getOption(language, 'zh');
             to.appendChild(option2);
         });
     });
